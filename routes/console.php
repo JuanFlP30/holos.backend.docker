@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Schedules\DeleteResetPasswords;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+if(config('telescope.enabled') == 'true') {
+    Schedule::command('telescope:prune')->daily();
+}
+
+Schedule::call(new DeleteResetPasswords)->hourly();

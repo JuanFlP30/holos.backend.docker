@@ -12,8 +12,11 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
+    'version' => '0.0.1',
 
     'name' => env('APP_NAME', 'Laravel'),
+
+    'pagination' => env('APP_PAGINATION', 25),
 
     /*
     |--------------------------------------------------------------------------
@@ -122,5 +125,4 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
 ];

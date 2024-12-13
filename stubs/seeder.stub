@@ -1,0 +1,25 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Seeder
+{
+    /**
+     * Ejecutar sembrado de base de datos
+     */
+    public function run(): void
+    {
+        //
+    }
+}

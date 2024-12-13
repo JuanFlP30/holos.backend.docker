@@ -1,0 +1,56 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use {{ namespacedModel }};
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }}
+{
+    /**
+     * Manipulador del evento "created" del modelo {{ model }}
+     */
+    public function created({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * Manipulador del evento "updated" del modelo {{ model }}
+     */
+    public function updated({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * Manipulador del evento "deleted" del modelo {{ model }}
+     */
+    public function deleted({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * Manipulador del evento "restored" del modelo {{ model }}
+     */
+    public function restored({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * Manipulador del evento "force deleted" del modelo {{ model }}
+     */
+    public function forceDeleted({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+}

@@ -1,0 +1,34 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Console\Command;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Command
+{
+    /**
+     * Nombre del comando
+     */
+    protected $signature = '{{ command }}';
+
+    /**
+     * La descripción del comando
+     */
+    protected $description = 'Descripción del comando';
+
+    /**
+     * Ejecutar comando
+     */
+    public function handle()
+    {
+        //
+    }
+}

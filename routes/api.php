@@ -1,0 +1,64 @@
+<?php
+
+use App\Http\Controllers\MyUserController;
+use App\Http\Controllers\System\LoginController;
+use App\Http\Controllers\System\NotificationController;
+use App\Http\Controllers\System\SystemController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+use Notsoweb\ApiResponse\Enums\ApiResponse;
+use Tighten\Ziggy\Ziggy;
+
+Route::get('/', function () {
+    return ApiResponse::OK->response([
+        "message" => "It's fine :D"
+    ]);
+});
+
+Route::name('api.')->group(function () {
+    Route::get('/routes', function () {
+        return (new Ziggy('api'))->toArray();
+    })->name('routes');
+});
+
+Route::middleware('auth:api')->group(function () {
+    // Aplicación
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::get('/', [MyUserController::class, 'show'])->name('show');
+        Route::put('/', [MyUserController::class, 'update'])->name('update');
+        Route::delete('/', [MyUserController::class, 'destroy'])->name('destroy');
+        Route::delete('photo', [MyUserController::class, 'destroyPhoto'])->name('photo');
+        Route::put('password', [MyUserController::class, 'updatePassword'])->name('password');
+        Route::post('password-confirm', [MyUserController::class, 'confirmPassword'])->name('password-confirm');
+        Route::get('permissions', [MyUserController::class, 'permissions'])->name('permissions');
+        Route::get('roles', [MyUserController::class, 'roles'])->name('roles');
+    });
+
+    Route::prefix('users')->name('users.')->group(function() {
+        Route::prefix('{user}')->group(function() {
+            Route::get('roles', [UserController::class, 'roles'])->name('roles');
+            Route::put('roles', [UserController::class, 'updateRoles']);
+            Route::put('password', [UserController::class, 'updatePassword'])->name('password');
+            Route::get('permissions', [UserController::class, 'permissions'])->name('permissions');
+        });
+    });
+    Route::apiResource('users', UserController::class);
+
+    // Sistema
+    Route::prefix('system')->name('system.')->group(function() {
+        Route::get('permissions', [SystemController::class, 'permissions'])->name('permissions');
+        Route::get('roles', [SystemController::class, 'roles'])->name('roles');
+        Route::prefix('notifications')->name('notifications.')->group(function() {
+            Route::get('all-unread', [NotificationController::class, 'allUnread'])->name('all-unread');
+            Route::post('read', [NotificationController::class, 'read'])->name('read');
+        });
+    });
+
+    Route::post('auth/logout', [LoginController::class, 'logout'])->name('auth.logout');
+});
+
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::post('forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot-password');
+    Route::post('reset-password', [LoginController::class, 'resetPassword'])->name('reset-password');
+});

@@ -1,0 +1,20 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+
+{{ factoryImport }}
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Model
+{
+    {{ factory }}
+}

@@ -1,0 +1,67 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use {{ namespacedParentModel }};
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Controller
+{
+    /**
+     * Crear
+     */
+    public function create({{ parentModel }} ${{ parentModelVariable }}): never
+    {
+        abort(404);
+    }
+
+    /**
+     * Almacenar
+     */
+    public function store(Request $request, {{ parentModel }} ${{ parentModelVariable }}): never
+    {
+        abort(404);
+    }
+
+    /**
+     * Mostrar
+     */
+    public function show({{ parentModel }} ${{ parentModelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Editar
+     */
+    public function edit({{ parentModel }} ${{ parentModelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Actualizar
+     */
+    public function update(Request $request, {{ parentModel }} ${{ parentModelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Eliminar
+     */
+    public function destroy({{ parentModel }} ${{ parentModelVariable }}): never
+    {
+        abort(404);
+    }
+}

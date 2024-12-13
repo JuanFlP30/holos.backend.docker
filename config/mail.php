@@ -2,6 +2,8 @@
 
 return [
 
+    'domain' => env('MAIL_DOMAIN', 'notsoweb.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

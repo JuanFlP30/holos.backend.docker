@@ -1,0 +1,59 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Crear instancia del mensaje
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Obtener el envoltorio del mensaje
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: '{{ subject }}',
+        );
+    }
+
+    /**
+     * Obtener la definición del contenido del mensaje
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view: 'view.name',
+        );
+    }
+
+    /**
+     * Obtener los adjuntos del mensaje
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}

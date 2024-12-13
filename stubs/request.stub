@@ -1,0 +1,34 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Foundation\Http\FormRequest;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends FormRequest
+{
+    /**
+     * Determinar si el usuario está autorizado para realizar esta solicitud
+     */
+    public function authorize(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Obtener las reglas de validación que se aplican a la solicitud
+     */
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+}

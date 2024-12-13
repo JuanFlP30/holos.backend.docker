@@ -1,4 +1,6 @@
 *
+!keys/
 !private/
+!profile/
 !public/
 !.gitignore

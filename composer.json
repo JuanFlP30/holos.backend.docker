@@ -8,7 +8,12 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
+        "laravel/passport": "^12.0",
+        "laravel/pulse": "^1.2",
+        "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.9",
+        "notsoweb/laravel-core": "dev-main",
+        "spatie/laravel-permission": "^6.10",
         "tightenco/ziggy": "^2.4"
     },
     "require-dev": {
@@ -16,6 +21,7 @@
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
+        "laravel/telescope": "^5.2",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^11.0.1"
@@ -51,11 +57,54 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "env:dev": [
+            "composer install",
+            "composer run post-root-package-install",
+            "composer run post-create-project-cmd",
+            "@php artisan storage:link"
+        ],
+        "env:prod": [
+            "composer install --no-dev",
+            "composer run post-root-package-install",
+            "composer run post-create-project-cmd",
+            "@php artisan storage:link"
+        ],
+        "db:dev": [
+            "@php artisan migrate:fresh --seeder=DevSeeder",
+            "@php artisan passport:client --personal --name=Holos"
+        ],
+        "db:prod": [
+            "@php artisan migrate:fresh --seed",
+            "@php artisan passport:client --personal --name=Holos"
+        ],
+        "jobs:start": [
+            "pm2 start \"php artisan schedule:work\" --name holos-schedules",
+            "pm2 start \"php artisan queue:work\" --name holos-queue"
+        ],
+        "jobs:stop": [
+            "pm2 delete holos-schedules",
+            "pm2 delete holos-queue"
+        ],
+        "jobs:status": [
+            "pm2 show holos-schedules",
+            "pm2 show holos-queue"
+        ],
+        "broadcast:start": [
+            "pm2 start \"php artisan reverb:start\" --name=holos-broadcasts"
+        ],
+        "broadcast:stop": [
+            "pm2 delete holos-broadcasts"
+        ],
+        "broadcast:status": [
+            "pm2 show holos-broadcasts"
         ]
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/telescope"
+            ]
         }
     },
     "config": {
@@ -67,6 +116,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

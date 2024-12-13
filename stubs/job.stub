@@ -1,0 +1,34 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Foundation\Bus\Dispatchable;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }}
+{
+    use Dispatchable;
+
+    /**
+     * Crear instancia del trabajo
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Ejecutar el trabajo
+     */
+    public function handle(): void
+    {
+        //
+    }
+}

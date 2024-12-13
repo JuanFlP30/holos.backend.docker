@@ -1,0 +1,50 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Notsoweb\ApiResponse\Enums\ApiResponse;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Controller
+{
+    /**
+     * Almacenar
+     */
+    public function store(Request $request): never
+    {
+        abort(404);
+    }
+
+    /**
+     * Mostrar
+     */
+    public function show()
+    {
+        //
+    }
+
+    /**
+     * Actualizar
+     */
+    public function update(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Eliminar
+     */
+    public function destroy(): never
+    {
+        abort(404);
+    }
+}

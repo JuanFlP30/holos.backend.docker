@@ -1,0 +1,73 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Http\Request;
+use Notsoweb\LaravelCore\Controllers\VueController;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends VueController
+{
+    /**
+     * Listar
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Crear
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Almacenar
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Mostrar
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Editar
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Actualizar
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Eliminar
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
