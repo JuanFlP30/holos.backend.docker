@@ -1,24 +1,18 @@
 <?php
 
 use App\Http\Controllers\MyUserController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\System\LoginController;
 use App\Http\Controllers\System\NotificationController;
 use App\Http\Controllers\System\SystemController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
-use Tighten\Ziggy\Ziggy;
 
 Route::get('/', function () {
     return ApiResponse::OK->response([
         "message" => "It's fine :D"
     ]);
-});
-
-Route::name('api.')->group(function () {
-    Route::get('/routes', function () {
-        return (new Ziggy('api'))->toArray();
-    })->name('routes');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -55,6 +49,11 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout'])->name('auth.logout');
+});
+
+Route::prefix('resources')->name('resources.')->group(function() {
+    Route::get('app', [ResourceController::class, 'app'])->name('app');
+    Route::get('routes', [ResourceController::class, 'routes'])->name('routes');
 });
 
 Route::prefix('auth')->name('auth.')->group(function () {

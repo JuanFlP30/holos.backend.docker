@@ -3430,12 +3430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/notsoweb/laravel-core.git",
-                "reference": "6c3c2841dcd9358f423005c8fe411ab5f9157f94"
+                "reference": "c2c9413dd2be426fef44e38d1fef7d7386c18831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/notsoweb/laravel-core/zipball/6c3c2841dcd9358f423005c8fe411ab5f9157f94",
-                "reference": "6c3c2841dcd9358f423005c8fe411ab5f9157f94",
+                "url": "https://api.github.com/repos/notsoweb/laravel-core/zipball/c2c9413dd2be426fef44e38d1fef7d7386c18831",
+                "reference": "c2c9413dd2be426fef44e38d1fef7d7386c18831",
                 "shasum": ""
             },
             "require": {
@@ -3467,7 +3467,7 @@
                 "issues": "https://github.com/notsoweb/laravel-core/issues",
                 "source": "https://github.com/notsoweb/laravel-core/tree/main"
             },
-            "time": "2024-10-24T23:54:14+00:00"
+            "time": "2024-12-14T16:38:46+00:00"
         },
         {
             "name": "nunomaduro/termwind",
