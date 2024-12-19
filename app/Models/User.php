@@ -5,6 +5,7 @@
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Traits\HasProfilePhoto;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,6 +63,28 @@ class User extends Authenticatable
      * Los accesores a añadir al modelo en su forma de array
      */
     protected $appends = [
+        'full_name',
+        'last_name',
         'profile_photo_url',
     ];
+
+    /**
+     * Nombre completo del usuario
+     */
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name . ' ' . $this->paternal . ' ' . $this->maternal,
+        );
+    }
+
+    /**
+     * Apellido paterno y materno del usuario
+     */
+    public function lastName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->paternal . ' ' . $this->maternal,
+        );
+    }
 }
