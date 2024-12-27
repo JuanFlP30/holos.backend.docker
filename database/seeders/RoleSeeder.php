@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
         ] = $this->onCRUD('users', $users);
 
         $userSettings = $this->onPermission('users.settings', 'Configuración de usuarios', $users);
+        $userOnline   = $this->onPermission('users.online', 'Usuarios en linea', $users);
 
         // Desarrollador
         Role::create([
@@ -43,7 +44,8 @@ class RoleSeeder extends Seeder
             $userCreate,
             $userEdit,
             $userDestroy,
-            $userSettings
+            $userSettings,
+            $userOnline
         );
     }
 }

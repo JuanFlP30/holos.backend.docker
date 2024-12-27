@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 /**
- * Descripción
+ * Notificación de recuperación de contraseña
  * 
  * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
  * 

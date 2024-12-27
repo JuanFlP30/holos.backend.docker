@@ -17,6 +17,11 @@ return new class extends Migration
             $table->morphs('notifiable');
             $table->text('data');
             $table->timestamp('read_at')->nullable();
+            $table->boolean('is_closed')->default(false);
+            $table->foreignId('user_id') // Usuario que crea la notificación
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -3,9 +3,9 @@
  * @copyright 2024 Notsoweb (https://notsoweb.com) - All rights reserved.
  */
 
+use App\Models\Notification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\DatabaseNotification;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
 use Notsoweb\LaravelCore\Controllers\VueController;
 
@@ -31,7 +31,7 @@ class NotificationController extends VueController
      */
     public function index()
     {
-        $q = request()->get('query');
+        $q = request()->get('q');
 
         $model = auth()->user()
             ->notifications();
@@ -41,29 +41,8 @@ class NotificationController extends VueController
                 ->orWhere('data->message', "LIKE", "%{$q}%");
         }
         
-        return $this->view('index', [
+        return ApiResponse::OK->response([
             'models' => $model
-                ->paginate(config('app.pagination'))
-        ]);
-    }
-
-    /**
-     * Todas las notificaciones
-     */
-    public function all(): JsonResponse
-    {
-        $query = request()->get('query');
-
-        $model = auth()->user()
-            ->notifications();
-
-        if($query) {
-            $model = $model->where('data->title', 'LIKE', "%{$query}%")
-                ->orWhere('data->message', "LIKE", "%{$query}%");
-        }
-        
-        return ApiResponse::OK->axios([
-            'notifications' => $model
                 ->paginate(config('app.pagination'))
         ]);
     }
@@ -73,13 +52,27 @@ class NotificationController extends VueController
      */
     public function read(Request $request): JsonResponse
     {
-        $notification = DatabaseNotification::find($request->get('id'));
+        $notification = Notification::find($request->get('id'));
 
         if ($notification) {
             $notification->markAsRead();
         }
 
-        return ApiResponse::OK->axios();
+        return ApiResponse::OK->response();
+    }
+
+    /**
+     * Marcar notificación como cerrada
+     */
+    public function close(Request $request): JsonResponse
+    {
+        $notification = Notification::find($request->get('id'));
+
+        if ($notification) {
+            $notification->markAsClosed();
+        }
+
+        return ApiResponse::OK->response();
     }
 
     /**
@@ -87,9 +80,10 @@ class NotificationController extends VueController
      */
     public function allUnread(): JsonResponse
     {
-        return ApiResponse::OK->axios([
+        return ApiResponse::OK->response([
             'total' => auth()->user()->unreadNotifications()->count(),
-            'notifications' => auth()->user()->unreadNotifications()->limit(10)->get(),
+            'unread_closed' => auth()->user()->unreadNotifications()->where('is_closed', true)->count(),
+            'notifications' => auth()->user()->unreadNotifications()->where('is_closed', false)->limit(10)->get(),
         ]);
     }
 }

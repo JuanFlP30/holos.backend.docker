@@ -43,8 +43,10 @@ Route::middleware('auth:api')->group(function () {
         Route::get('permissions', [SystemController::class, 'permissions'])->name('permissions');
         Route::get('roles', [SystemController::class, 'roles'])->name('roles');
         Route::prefix('notifications')->name('notifications.')->group(function() {
+            Route::get('all', [NotificationController::class, 'index'])->name('all');
             Route::get('all-unread', [NotificationController::class, 'allUnread'])->name('all-unread');
             Route::post('read', [NotificationController::class, 'read'])->name('read');
+            Route::post('close', [NotificationController::class, 'close'])->name('close');
         });
     });
 
@@ -61,3 +63,4 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot-password');
     Route::post('reset-password', [LoginController::class, 'resetPassword'])->name('reset-password');
 });
+

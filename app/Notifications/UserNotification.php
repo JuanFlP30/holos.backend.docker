@@ -1,9 +1,19 @@
 <?php namespace App\Notifications;
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
+/**
+ * Notificación de usuario
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
 class UserNotification extends Notification
 {
     use Queueable;
@@ -17,6 +27,7 @@ class UserNotification extends Notification
         public ?string $message = null,
         public string $type = 'info',
         public int $timeout = 20,
+        public bool $save = true,
     ) {}
 
     /**
@@ -26,10 +37,13 @@ class UserNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return [
-            'broadcast',
-            'database'
-        ];
+        $vias = ['broadcast'];
+
+        if ($this->save) {
+            $vias[] = 'database';
+        }
+
+        return $vias;
     }
 
     /**

@@ -5,10 +5,10 @@
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Traits\HasProfilePhoto;
+use App\Http\Traits\IsNotifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -25,7 +25,7 @@ class User extends Authenticatable
         HasFactory,
         HasRoles,
         HasProfilePhoto,
-        Notifiable;
+        IsNotifiable;
 
     /**
      * Atributos permitidos

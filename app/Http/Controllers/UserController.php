@@ -33,7 +33,7 @@ class UserController extends Controller
         QuerySupport::queryByKeys($users, ['name', 'email']);
 
         return ApiResponse::OK->response([
-            'users' => $users->paginate(config('app.pagination'))
+            'models' => $users->paginate(config('app.pagination'))
         ]);
     }
 
