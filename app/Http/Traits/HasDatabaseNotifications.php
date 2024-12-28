@@ -1,4 +1,7 @@
 <?php namespace App\Http\Traits;
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
 
 use App\Models\Notification;
 
@@ -6,6 +9,8 @@ use App\Models\Notification;
  * Notificaciones de base de datos
  * 
  * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
  */
 trait HasDatabaseNotifications
 {

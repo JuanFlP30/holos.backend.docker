@@ -1,4 +1,7 @@
 <?php namespace App\Models;
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\HasCollection;
@@ -9,6 +12,8 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * Sistema personalizado de notificaciones
  * 
  * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
  */
 class Notification extends Model
 {

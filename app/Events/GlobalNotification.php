@@ -4,10 +4,9 @@
  */
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithBroadcasting;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -20,10 +19,9 @@ use Illuminate\Queue\SerializesModels;
  * 
  * @version 1.0.0
  */
-class GlobalNotification implements ShouldBroadcastNow
+class GlobalNotification implements ShouldBroadcast
 {
     use Dispatchable,
-        InteractsWithBroadcasting,
         InteractsWithSockets,
         SerializesModels;
 

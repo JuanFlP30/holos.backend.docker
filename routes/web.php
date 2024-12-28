@@ -1,22 +1,8 @@
 <?php
 
+use App\Http\Controllers\ServerController;
 use Illuminate\Support\Facades\Route;
-use Notsoweb\ApiResponse\Enums\ApiResponse;
 
-Route::get('/', function () {
-    return ApiResponse::OK->response([
-        "message" => "It's fine :D"
-    ]);
-});
-
-Route::get('/version', function () {
-    return ApiResponse::OK->response([
-        "version" => config('app.version')
-    ]);
-});
-
-Route::get('/login', function () {
-    return ApiResponse::OK->response([
-        "message" => __('login.required')
-    ]);
-})->name('login');
+Route::get('/', [ServerController::class, 'status']);
+Route::get('/version', [ServerController::class, 'version']);
+Route::get('/login', [ServerController::class, 'loginRequired'])->name('login');

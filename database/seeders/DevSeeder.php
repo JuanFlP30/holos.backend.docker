@@ -1,7 +1,17 @@
 <?php namespace Database\Seeders;
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
 
 use Illuminate\Database\Seeder;
 
+/**
+ * Seeder de desarrollo
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
 class DevSeeder extends Seeder
 {
     /**

@@ -1,19 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionTypeController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\MyUserController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\System\LoginController;
 use App\Http\Controllers\System\NotificationController;
 use App\Http\Controllers\System\SystemController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ServerController;
 use Illuminate\Support\Facades\Route;
-use Notsoweb\ApiResponse\Enums\ApiResponse;
 
-Route::get('/', function () {
-    return ApiResponse::OK->response([
-        "message" => "It's fine :D"
-    ]);
-});
+Route::get('/', [ServerController::class, 'status'])->name('status');
 
 Route::middleware('auth:api')->group(function () {
     // Aplicación
@@ -37,6 +35,16 @@ Route::middleware('auth:api')->group(function () {
         });
     });
     Route::apiResource('users', UserController::class);
+
+    // Roles
+    Route::apiResource('roles', RoleController::class);
+    Route::get('roles/{role}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
+    Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.permissions.update');
+
+    Route::prefix('permission-types')->name('permission-types.')->group(function() {    
+        Route::get('all', [PermissionTypeController::class, 'all'])->name('all');
+        Route::get('all-with-permissions', [PermissionTypeController::class, 'allWithPermissions'])->name('all-with-permissions');
+    });
 
     // Sistema
     Route::prefix('system')->name('system.')->group(function() {
@@ -63,4 +71,3 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('forgot-password', [LoginController::class, 'forgotPassword'])->name('forgot-password');
     Route::post('reset-password', [LoginController::class, 'resetPassword'])->name('reset-password');
 });
-

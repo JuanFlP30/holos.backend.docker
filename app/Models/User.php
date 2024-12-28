@@ -9,6 +9,7 @@ use App\Http\Traits\IsNotifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -86,5 +87,13 @@ class User extends Authenticatable
         return Attribute::make(
             get: fn () => $this->paternal . ' ' . $this->maternal,
         );
+    }
+
+    /**
+     * Validar la contraseña
+     */
+    public function validateForPassportPasswordGrant(string $password): bool
+    {
+        return Hash::check($password, $this->password);
     }
 }

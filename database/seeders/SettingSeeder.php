@@ -8,7 +8,7 @@ use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
 /**
- * Descripción
+ * Configuraciones del sistema
  * 
  * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
  * 

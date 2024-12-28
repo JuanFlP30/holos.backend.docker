@@ -8,7 +8,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\User\ForgotRequest;
 use App\Models\User;
 use App\Notifications\ForgotPasswordNotification;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
 
@@ -26,16 +25,20 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        return (Auth::attempt($request->all()))
-            ? ApiResponse::OK->onSuccess([
-                'user' => auth()->user(),
-                'token' => auth()->user()
-                    ->createToken('golscore')
-                    ->accessToken,
-            ])
-            : ApiResponse::UNPROCESSABLE_CONTENT->response([
+        $user = User::where('email', $request->get('email'))->first();
+
+        if (!$user || !$user->validateForPassportPasswordGrant($request->get('password'))) {
+            return ApiResponse::UNPROCESSABLE_CONTENT->response([
                 'email' => ['Usuario no valido']
             ]);
+        }
+
+        return ApiResponse::OK->onSuccess([
+            'user' => $user,
+            'token' => $user
+                ->createToken('golscore')
+                ->accessToken,
+        ]);
     }
 
     /**

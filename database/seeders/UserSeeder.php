@@ -1,9 +1,19 @@
 <?php namespace Database\Seeders;
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Notsoweb\LaravelCore\Supports\UserSecureSupport;
 
+/**
+ * Usuarios predeterminados del sistema
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
 class UserSeeder extends Seeder
 {
     /**

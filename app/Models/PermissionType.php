@@ -4,6 +4,7 @@
  */
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Permission;
 
 /**
  * Tipos de permisos
@@ -21,4 +22,12 @@ class PermissionType extends Model
         'name',
         'description'
     ];
+
+    /**
+     * Un tipo de permiso tiene muchos permisos
+     */
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
 }

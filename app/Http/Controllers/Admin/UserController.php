@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 /**
  * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
  */
