@@ -40,7 +40,11 @@ class AppServiceProvider extends ServiceProvider
 
         // Acceso a Pulse
         Gate::define('viewPulse', function (User $user) {
-            return $user->hasRole('developer');
+            try {
+                return $user->hasPermissionTo('pulse', 'api');
+            } catch (\Throwable $th) {
+                return false;
+            }
         });
     }
 }

@@ -50,14 +50,18 @@ class RoleSeeder extends Seeder
             $roleDestroy
         ] = $this->onCRUD('roles', $roles, 'api');
 
+        $pulse = PermissionType::create([
+            'name' => 'Sistema'
+        ]);
+
+        $systemPulse = $this->onPermission('pulse', 'Monitoreo de Pulse', $pulse, 'api');
+
         // Desarrollador
         Role::create([
             'name' => 'developer',
             'description' => 'Desarrollador',
             'guard_name' => 'api'
         ])->givePermissionTo(Permission::all());
-
-        
 
         // Administrador
         Role::create([
@@ -74,7 +78,8 @@ class RoleSeeder extends Seeder
             $roleIndex,
             $roleCreate,
             $roleEdit,
-            $roleDestroy
+            $roleDestroy,
+            $systemPulse
         );
     }
 }
