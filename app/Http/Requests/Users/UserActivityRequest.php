@@ -6,20 +6,20 @@
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Actualizar contraseña desde gestión de usuarios
+ * Descripción
  * 
  * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
  * 
  * @version 1.0.0
  */
-class PasswordUpdateRequest extends FormRequest
+class UserActivityRequest extends FormRequest
 {
     /**
      * Determinar si el usuario está autorizado para realizar esta solicitud
      */
     public function authorize(): bool
     {
-        return auth()->user()->hasPermissionTo('users.edit');
+        return true;
     }
 
     /**
@@ -28,7 +28,10 @@ class PasswordUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['required', 'string', 'min:8', 'confirmed']
+            'search' => ['nullable', 'string', 'max:255'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date'],
+            'user' => ['nullable', 'exists:users,id']
         ];
     }
 }

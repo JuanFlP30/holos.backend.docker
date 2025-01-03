@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\PermissionTypeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\MyUserController;
@@ -26,20 +27,25 @@ Route::middleware('auth:api')->group(function () {
         Route::get('roles', [MyUserController::class, 'roles'])->name('roles');
     });
 
-    Route::prefix('users')->name('users.')->group(function() {
-        Route::prefix('{user}')->group(function() {
-            Route::get('roles', [UserController::class, 'roles'])->name('roles');
-            Route::put('roles', [UserController::class, 'updateRoles']);
-            Route::put('password', [UserController::class, 'updatePassword'])->name('password');
-            Route::get('permissions', [UserController::class, 'permissions'])->name('permissions');
-        });
-    });
-    Route::apiResource('users', UserController::class);
+    Route::prefix('admin')->name('admin.')->group(function() {
+        Route::apiResource('activities', ActivityController::class)->only(['index']);
 
-    // Roles
-    Route::apiResource('roles', RoleController::class);
-    Route::get('roles/{role}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
-    Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.permissions.update');
+        Route::prefix('users')->name('users.')->group(function() {
+            Route::prefix('{user}')->group(function() {
+                Route::get('roles', [UserController::class, 'roles'])->name('roles');
+                Route::put('roles', [UserController::class, 'updateRoles']);
+                Route::put('password', [UserController::class, 'updatePassword'])->name('password');
+                Route::get('permissions', [UserController::class, 'permissions'])->name('permissions');
+            });
+        });
+        Route::apiResource('users', UserController::class);
+    
+        // Roles
+        Route::apiResource('roles', RoleController::class);
+        Route::get('roles/{role}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
+        Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.permissions.update');
+    });
+
 
     Route::prefix('permission-types')->name('permission-types.')->group(function() {    
         Route::get('all', [PermissionTypeController::class, 'all'])->name('all');

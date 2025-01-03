@@ -8,9 +8,11 @@ use App\Http\Traits\HasProfilePhoto;
 use App\Http\Traits\IsNotifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use Notsoweb\LaravelCore\Traits\Models\Extended;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -22,11 +24,13 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens,
+    use Extended,
+        HasApiTokens,
         HasFactory,
         HasRoles,
         HasProfilePhoto,
-        IsNotifiable;
+        IsNotifiable,
+        SoftDeletes;
 
     /**
      * Atributos permitidos
@@ -68,6 +72,22 @@ class User extends Authenticatable
         'last_name',
         'profile_photo_url',
     ];
+
+    /**
+     * Un usuario puede generar muchos eventos
+     */
+    public function events()
+    {
+        return $this->hasMany(UserEvent::class);
+    }
+
+    /**
+     * Evento
+     */
+    public function reports()
+    {
+        return $this->morphMany(UserEvent::class, 'reportable');
+    }
 
     /**
      * Nombre completo del usuario

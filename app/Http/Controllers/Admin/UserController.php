@@ -5,6 +5,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\PasswordUpdateRequest;
+use App\Http\Requests\Users\UserActivityRequest;
 use App\Http\Requests\Users\UserStoreRequest;
 use App\Http\Requests\Users\UserUpdateRequest;
 use App\Models\User;
@@ -127,5 +128,33 @@ class UserController extends Controller
         ]);
 
         return ApiResponse::OK->response();
+    }
+
+    /**
+     * Actividades del usuario
+     */
+    public function activity(UserActivityRequest $request, User $user)
+    {
+        $filters = $request->all();
+        $model = $user->events()
+            ->with('user:id,name,paternal,maternal,profile_photo_path');
+
+        if($filters['search']){
+            $model->where('event', 'like', '%'.$filters['search'].'%');
+        }
+
+        if($filters['start_date']){
+            $model->where('created_at', '>=', "{$filters['start_date']} 00:00:00");
+        }
+
+        if($filters['end_date']){
+            $model->where('created_at', '<=', "{$filters['end_date']} 23:59:59");
+        }
+
+        return ApiResponse::OK->response([
+            'models' => 
+                $model->orderBy('created_at', 'desc')
+                ->paginate(config('app.pagination'))
+        ]);
     }
 }

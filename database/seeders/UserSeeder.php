@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Developer',
             'paternal' => 'Notsoweb',
+            'maternal' => 'Software',
             'email' => $developer->email,
             'password' => $developer->hash,
         ])->assignRole(__('developer'));
@@ -33,8 +34,9 @@ class UserSeeder extends Seeder
         $admin = UserSecureSupport::create('admin@notsoweb.com');
 
         User::create([
-            'name' => 'Developer',
+            'name' => 'Admin',
             'paternal' => 'Notsoweb',
+            'maternal' => 'Software',
             'email' => $admin->email,
             'password' => $admin->hash,
         ])->assignRole(__('admin'));
@@ -44,6 +46,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Demo',
             'paternal' => 'Notsoweb',
+            'maternal' => 'Software',
             'email' => $demo->email,
             'password' => $demo->hash,
         ]);

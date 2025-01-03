@@ -56,6 +56,16 @@ class RoleSeeder extends Seeder
 
         $systemPulse = $this->onPermission('pulse', 'Monitoreo de Pulse', $pulse, 'api');
 
+        $pulse = PermissionType::create([
+            'name' => 'Historial de actividades'
+        ]);
+
+        $activityIndex = $this->onIndex(
+            code: 'activities', 
+            type: $pulse, 
+            guardName: 'api'
+        );
+
         // Desarrollador
         Role::create([
             'name' => 'developer',
@@ -79,7 +89,8 @@ class RoleSeeder extends Seeder
             $roleCreate,
             $roleEdit,
             $roleDestroy,
-            $systemPulse
+            $systemPulse,
+            $activityIndex
         );
     }
 }
