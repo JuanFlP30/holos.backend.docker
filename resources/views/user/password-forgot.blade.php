@@ -1,10 +1,11 @@
 <x-mail::message>
-{{ __('auth.forgot.line') }}
+{{ __('auth.forgot.description') }}
 
-<x-mail::button :url="env('APP_FRONTEND_URL') . '/auth.html#/reset-password?code=12345234234'">
-{{ __('auth.forgot.button') }}
+<x-mail::button :url="config('app.frontend_url') . '/auth.html#/reset-password?token=' . $token . '&email=' . $user->email">
+{{ __('auth.forgot.reset') }}
 </x-mail::button>
 
-{{ __('thanks')}},<br>
-{{ config('app.name') }}
+*{{ __('sincerely')}}*,<br>
+{{ config('app.name') }}.
+
 </x-mail::message>

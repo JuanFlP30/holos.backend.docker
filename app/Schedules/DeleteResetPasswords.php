@@ -18,6 +18,6 @@ class DeleteResetPasswords
      */
     public function __invoke()
     {
-        ResetPassword::where('created_at', '<', Carbon::now()->subMinutes(10))->delete();
+        ResetPassword::where('created_at', '<', Carbon::now()->subMinutes(15))->delete();
     }
 }

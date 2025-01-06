@@ -18,7 +18,12 @@ return [
     'throttle' => 'Demasiados intentos de acceso. Por favor inténtelo de nuevo en :seconds segundos.',
     'forgot' => [
         'subject' => 'Recuperación de contraseña',
-        'line' => 'Por favor, haga clic en el siguiente enlace para restaurar su contraseña. El enlace expira en 15 minutos.',
-        'button' => 'Restaurar contraseña',
+        'description' => 'Por favor, haga clic en el siguiente enlace para restaurar su contraseña. El enlace expira en 15 minutos.',
+        'reset' => 'Restaurar contraseña',
     ],
+    'token' => [
+        'not_exists' => 'El token no existe.',
+        'expired' => 'El token caducado.',
+        'both' => 'El token no existe o ha caducado.',
+    ]
 ];

@@ -27,10 +27,12 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+        Schema::create('reset_passwords', function (Blueprint $table) {
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+            $table->timestamp('created_at');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -49,7 +51,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('reset_passwords');
         Schema::dropIfExists('sessions');
     }
 };

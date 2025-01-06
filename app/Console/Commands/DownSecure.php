@@ -25,7 +25,7 @@ class DownSecure extends Command
      *
      * @var string
      */
-    protected $signature = 'app:secure';
+    protected $signature = 'down:secure';
 
     /**
      * The console command description.

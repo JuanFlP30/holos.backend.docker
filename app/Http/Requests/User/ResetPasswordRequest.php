@@ -1,0 +1,45 @@
+<?php namespace App\Http\Requests\User;
+/**
+ * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ */
+
+use Illuminate\Foundation\Http\FormRequest;
+
+/**
+ * Solicitud de olvido de contraseña
+ * 
+ * @author Moisés Cortés C. <moises.cortes@notsoweb.com>
+ * 
+ * @version 1.0.0
+ */
+class ResetPasswordRequest extends FormRequest
+{
+    /**
+     * Determinar si el usuario está autorizado para realizar esta solicitud
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Obtener las reglas de validación que se aplican a la solicitud
+     */
+    public function rules(): array
+    {
+        return [
+            'token' => ['required', 'string', 'exists:reset_passwords,token'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+    }
+
+    /**
+     * Mensajes de validación
+     */
+    public function messages(): array
+    {
+        return [
+            'token.exists' => __('auth.token.both'),
+        ];
+    }
+}

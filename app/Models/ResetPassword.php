@@ -18,8 +18,21 @@ class ResetPassword extends Model
      * Atributos asignables
      */
     protected $fillable = [
-        'email',
+        'user_id',
         'token',
         'created_at',
     ];
+
+    /**
+     * Desactivar fecha actualización
+     */
+    const UPDATED_AT = null;
+
+    /**
+     * Un reset de contraseña pertenece a un usuario
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

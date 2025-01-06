@@ -21,10 +21,9 @@ class ForgotPasswordNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(
+        public string $token
+    ) {}
 
     /**
      * Obtener los canales de entrega de la notificación
@@ -40,8 +39,11 @@ class ForgotPasswordNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject(__('auth.forgot-password.subject'))
-            ->markdown('user.password-forgot');
+            ->subject(__('auth.forgot.subject'))
+            ->markdown('user.password-forgot', [
+                'user' => $notifiable,
+                'token' => $this->token
+            ]);
     }
 
     /**

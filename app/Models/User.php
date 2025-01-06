@@ -116,4 +116,12 @@ class User extends Authenticatable
     {
         return Hash::check($password, $this->password);
     }
+
+    /**
+     * Reset password
+     */
+    public function resetPasswords()
+    {
+        return $this->hasMany(ResetPassword::class);
+    }
 }

@@ -23,7 +23,7 @@ class Broadcast extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Servicio de broadcast';
 
     /**
      * Execute the console command.
