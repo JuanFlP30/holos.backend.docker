@@ -7,10 +7,10 @@ use App\Events\UpdateRoleUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Roles\RoleStoreRequest;
 use App\Http\Requests\Roles\RoleUpdateRequest;
+use App\Models\Role;
 use App\Supports\QuerySupport;
 use Illuminate\Http\Request;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
-use Spatie\Permission\Models\Role;
 
 /**
  * Roles del sistema

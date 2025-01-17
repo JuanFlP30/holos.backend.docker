@@ -12,7 +12,7 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
-    'version' => '0.9.5',
+    'version' => '0.9.7',
 
     'name' => env('APP_NAME', 'Laravel'),
 

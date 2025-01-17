@@ -3,12 +3,12 @@
  * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
  */
 
+use App\Models\Role;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Spatie\Permission\Models\Role;
 
 /**
  * Role de usuario actualizado

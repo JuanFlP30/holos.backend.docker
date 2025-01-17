@@ -3,7 +3,9 @@
  * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
  */
 
+use App\Models\Role;
 use App\Models\User;
+use App\Observers\RoleObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,5 +32,6 @@ class ObserverProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe([UserObserver::class]);
+        Role::observe([RoleObserver::class]);
     }
 }

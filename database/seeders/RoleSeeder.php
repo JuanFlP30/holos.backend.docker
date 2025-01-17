@@ -4,10 +4,10 @@
  */
 
 use App\Models\PermissionType;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Notsoweb\LaravelCore\Traits\MySql\RolePermission;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 /**
  * Roles y permisos

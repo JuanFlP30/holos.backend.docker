@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Session\Middleware\StartSession;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
 use Notsoweb\LaravelCore\Http\APIException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
@@ -20,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
         attributes: ['middleware' => ['auth:api']]
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->group('api', [
+            StartSession::class,
+        ]);
+
         $middleware->validateCsrfTokens(except: [
             'sanctum/csrf-cookie',
             'user/*'

@@ -4,9 +4,9 @@
  */
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 /**
  * Recursos del sistema

@@ -98,6 +98,18 @@
         ],
         "broadcast:status": [
             "pm2 show holos-broadcasts"
+        ],
+        "services:start": [
+            "composer run jobs:start",
+            "composer run broadcast:start"
+        ],
+        "services:stop": [
+            "composer run jobs:stop",
+            "composer run broadcast:stop"
+        ],
+        "services:status": [
+            "composer run jobs:status",
+            "composer run broadcast:status"
         ]
     },
     "extra": {
