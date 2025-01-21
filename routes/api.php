@@ -11,7 +11,7 @@ require('core.php');
 /**
  * Rutas de tu aplicación.
  * 
- * Estas rutas son de la aplicación API que desarrollarás. Siéntete libre de agregar lo que consideres necesario.
+ * Estas rutas son de la aplicación AP   I que desarrollarás. Siéntete libre de agregar lo que consideres necesario.
  * Procura revisar que no existan rutas que entren en conflicto con las rutas del núcleo.
  */
 

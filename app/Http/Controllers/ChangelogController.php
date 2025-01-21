@@ -88,6 +88,13 @@ class ChangelogController extends Controller
                     'ADD: Comando para iniciar o detener todos los servicios',
                     'ADD: Observador de roles.',
                 ]
+            ],
+            [
+                'version' => '0.9.8',
+                'date' => '2025-01-18',
+                'changes' => [
+                    'ADD: Obtener cualquier recurso mediante la URL /resources/get (requiere autenticación).',
+                ]
             ]
         ]));
     }

@@ -4,6 +4,7 @@
  */
 
 use App\Models\Setting;
+use Illuminate\Http\Request;
 use Notsoweb\ApiResponse\Enums\ApiResponse;
 use Tighten\Ziggy\Ziggy;
 
@@ -16,6 +17,27 @@ use Tighten\Ziggy\Ziggy;
  */
 class ResourceController extends Controller
 {
+    /**
+     * Obtener cualquier recurso
+     * 
+     * Los recursos son traits que deben ser importados en este controlador. Para consumir el recurso del trait
+     * se debe de enviar el nombre de la función que se desea consumir, si esta requiere parámetros, se deben de enviar,
+     * sino se debe colocar un null.
+     */
+    public function get(Request $request)
+    {
+        $resources = $request->all();
+        $response = [];
+
+        foreach ($resources as $resource => $data) {
+            if (method_exists($this, $resource)) {
+                $response[$resource] = $this->{$resource}($data);
+            }
+        }
+
+        return ApiResponse::OK->onSuccess($response);
+    }
+
     /**
      * Información de la aplicación
      */
