@@ -95,6 +95,15 @@ class ChangelogController extends Controller
                 'changes' => [
                     'ADD: Obtener cualquier recurso mediante la URL /resources/get (requiere autenticación).',
                 ]
+            ],
+            [
+                'version' => '0.9.9',
+                'date' => '2025-03-04',
+                'changes' => [
+                    'UPGRADE: Actualización de Laravel a 12.x.',
+                    'UPGRADE: Versión minima de PHP a 8.3.',
+                    'UPGRADE: Actualización general de dependencias.',
+                ]
             ]
         ]));
     }
