@@ -75,8 +75,8 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::post('auth/logout', [LoginController::class, 'logout'])->name('auth.logout');
-
     Route::get('changelogs', ChangelogController::class)->name('changelogs');
+    Route::post('resources/get', [ResourceController::class, 'get'])->name('resources.get');
 });
 
 Route::prefix('resources')->name('resources.')->group(function() {
