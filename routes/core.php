@@ -9,6 +9,7 @@ use App\Http\Controllers\System\LoginController;
 use App\Http\Controllers\System\NotificationController;
 use App\Http\Controllers\System\SystemController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Catalogs\CatalogController;
 use App\Http\Controllers\ChangelogController;
 use App\Http\Controllers\ServerController;
 use Illuminate\Support\Facades\Route;
@@ -76,7 +77,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('auth/logout', [LoginController::class, 'logout'])->name('auth.logout');
     Route::get('changelogs', ChangelogController::class)->name('changelogs');
-    Route::post('resources/get', [ResourceController::class, 'get'])->name('resources.get');
+    Route::post('catalogs/get', [CatalogController::class, 'get'])->name('catalogs.get');
 });
 
 Route::prefix('resources')->name('resources.')->group(function() {
