@@ -104,6 +104,14 @@ class ChangelogController extends Controller
                     'UPGRADE: Versión minima de PHP a 8.3.',
                     'UPGRADE: Actualización general de dependencias.',
                 ]
+                ],
+            [
+                'version' => '0.9.10',
+                'date' => '2025-05-23',
+                'changes' => [
+                    'UPDATE: Los recursos de la aplicación se han movido a un controlador de catálogos. Ya no es necesario declarar los traits, ahora se reconocen dinámicamente.',
+                    'UPDATE: Actualización de dependencias.'
+                ]
             ]
         ]));
     }
