@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\System;
 /**
- * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ * @copyright (c) 2025 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
  */
 
 use App\Http\Controllers\Controller;

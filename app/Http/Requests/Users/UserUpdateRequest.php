@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests\Users;
 /**
- * @copyright (C) 2024 Notsoweb Software (https://notsoweb.com) - All rights reserved
+ * @copyright (c) 2025 Notsoweb Software (https://notsoweb.com) - All rights reserved
  */
 
 use Illuminate\Foundation\Http\FormRequest;

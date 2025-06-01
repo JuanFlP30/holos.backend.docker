@@ -1,6 +1,6 @@
 <?php namespace App\Schedules;
 /**
- * @copyright (c) 2024 Notsoweb Software (https://www.notsoweb.com) - All rights reserved.
+ * @copyright (c) 2025 Notsoweb Software (https://www.notsoweb.com) - All rights reserved.
  */
 
 use App\Models\ResetPassword;

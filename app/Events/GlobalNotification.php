@@ -1,6 +1,6 @@
 <?php namespace App\Events;
 /**
- * @copyright (c) 2024 Notsoweb (https://notsoweb.com) - All rights reserved.
+ * @copyright (c) 2025 Notsoweb (https://notsoweb.com) - All rights reserved.
  */
 
 use Illuminate\Broadcasting\Channel;

@@ -3,7 +3,7 @@
 use Notsoweb\ApiResponse\Enums\ApiResponse;
 
 /**
- * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ * @copyright (c) 2025 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
  */
 
 /**

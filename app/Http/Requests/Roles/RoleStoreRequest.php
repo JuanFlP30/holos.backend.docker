@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests\Roles;
 /**
- * @copyright (c) 2024 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
+ * @copyright (c) 2025 Notsoweb Software (https://notsoweb.com) - All Rights Reserved
  */
 
 use Illuminate\Foundation\Http\FormRequest;
