@@ -1,0 +1,66 @@
+services:
+  holos-backend:
+    build:
+      context: .
+      dockerfile: dockerfile
+    working_dir: /var/www/holos.backend
+    volumes:
+      - ./:/var/www/holos.backend
+      - ./storage:/var/www/holos.backend/storage
+    networks:
+      - holos-network
+    depends_on:
+      - mysql
+      - redis
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/holos.backend
+      - ./Docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - holos-network
+    depends_on:
+      - holos-backend
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - holos-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+        PMA_HOST: mysql
+        PMA_PORT: 3306
+    ports:
+        - '8081:80'
+    depends_on:
+        - mysql
+    networks:
+        - holos-network
+
+  redis:
+    image: redis:alpine
+    ports:
+     - "6379:6379"
+    networks:
+     - holos-network
+
+volumes:
+  mysql_data:
+
+networks:
+  holos-network:
+    driver: bridge
