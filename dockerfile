@@ -2,6 +2,8 @@ FROM php:8.3-fpm
 
 RUN mkdir -p /var/www/holos.backend
 
+WORKDIR /var/www/holos.backend
+
 RUN apt-get update && apt-get install -y\
     git \
     curl \
@@ -11,20 +13,20 @@ RUN apt-get update && apt-get install -y\
     zip \
     unzip \
     libzip-dev \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/holos.backend
+COPY composer.json composer.lock ./
 
-COPY composer.json composer.lock package*.json ./
-
-RUN composer install --no-dev --no-scripts --no-autoloader --optimize-autoloader --no-interaction
+RUN composer install --no-dev --no-scripts --optimize-autoloader --no-interaction
 
 COPY . .
+
+RUN php artisan config:cache \
+    && php artisan route:cache
 
 RUN chown -R www-data:www-data /var/www/holos.backend \
     && chmod -R 755 /var/www/holos.backend/storage \
