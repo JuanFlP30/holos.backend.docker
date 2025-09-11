@@ -24,6 +24,11 @@ RUN composer install --no-dev --no-scripts --optimize-autoloader --no-interactio
 
 COPY . .
 
+RUN php artisan package:discover --ansi \
+    && php artisan storage:link --force || true
+
+RUN chown -R www-data:www-data /var/www/holos.backend/storage /var/www/holos.backend/bootstrap/cache
+
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["sh", "-c", "sleep 10 && php artisan migrate --force && php artisan migrate --path=database/migrations/path --force && php-fpm"]
