@@ -6,7 +6,7 @@ services:
     working_dir: /var/www/holos.backend
     volumes:
       - ./:/var/www/holos.backend
-      - ./storage:/var/www/holos.backend/storage
+      - /var/www/holos.backend/vendor
     networks:
       - holos-network
     depends_on:
