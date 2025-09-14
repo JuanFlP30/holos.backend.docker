@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y\
     libxml2-dev \
     zip \
     unzip \
-    libzip-dev
+    libzip-dev \
+    openssl
 
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
@@ -24,11 +25,12 @@ RUN composer install --no-dev --no-scripts --optimize-autoloader --no-interactio
 
 COPY . .
 
-RUN php artisan package:discover --ansi \
-    && php artisan storage:link --force || true
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 RUN chown -R www-data:www-data /var/www/holos.backend/storage /var/www/holos.backend/bootstrap/cache
 
 EXPOSE 9000
 
-CMD ["sh", "-c", "sleep 10 && php artisan migrate --force && php artisan migrate --path=database/migrations/path --force && php-fpm"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]
