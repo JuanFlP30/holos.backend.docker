@@ -1,0 +1,20 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2026 MCortesDev (https://mcortes.dev) - All Rights Reserved
+ */
+
+
+{{ factoryImport }}
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <soy@mcortes.dev>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Model
+{
+    {{ factory }}
+}

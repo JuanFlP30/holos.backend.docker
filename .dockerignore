@@ -1,0 +1,13 @@
+.git
+.env
+vendor
+storage
+tests
+README.md
+.gitignore
+.gitattributes
+.editorconfig
+phpunit.xml
+public/storage
+public/images
+public/profile

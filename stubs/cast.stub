@@ -1,0 +1,33 @@
+<?php namespace {{ namespace }};    
+/**
+ * @copyright (c) 2026 MCortesDev (https://mcortes.dev) - All Rights Reserved
+ */
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <soy@mcortes.dev>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} implements CastsAttributes
+{
+    /**
+     * Transformar valor dado.
+     */
+    public function get(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        return $value;
+    }
+
+    /**
+     * Prepara el valor dado para almacenamiento.
+     */
+    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        return $value;
+    }
+}

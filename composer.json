@@ -1,0 +1,136 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.3",
+        "laravel/framework": "^12.0",
+        "laravel/passport": "^12.4",
+        "laravel/pulse": "^1.4",
+        "laravel/reverb": "^1.4",
+        "laravel/tinker": "^2.10",
+        "notsoweb/laravel-core": "dev-main",
+        "spatie/laravel-permission": "^6.16",
+        "tightenco/ziggy": "^2.5"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.24",
+        "laravel/pail": "^1.2",
+        "laravel/pint": "^1.21",
+        "laravel/sail": "^1.41",
+        "laravel/telescope": "^5.5",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "env:dev": [
+            "composer install",
+            "composer run post-root-package-install",
+            "composer run post-create-project-cmd",
+            "@php artisan storage:link"
+        ],
+        "env:prod": [
+            "composer install --no-dev",
+            "composer run post-root-package-install",
+            "composer run post-create-project-cmd",
+            "@php artisan storage:link"
+        ],
+        "db:dev": [
+            "@php artisan migrate:fresh --seeder=DevSeeder",
+            "@php artisan passport:client --personal --name=Holos"
+        ],
+        "db:prod": [
+            "@php artisan migrate:fresh --seed",
+            "@php artisan passport:client --personal --name=Holos"
+        ],
+        "jobs:start": [
+            "pm2 start \"php artisan schedule:work\" --name holos-schedules",
+            "pm2 start \"php artisan queue:work\" --name holos-queue"
+        ],
+        "jobs:stop": [
+            "pm2 delete holos-schedules",
+            "pm2 delete holos-queue"
+        ],
+        "jobs:status": [
+            "pm2 show holos-schedules",
+            "pm2 show holos-queue"
+        ],
+        "broadcast:start": [
+            "pm2 start \"php artisan reverb:start\" --name=holos-broadcasts"
+        ],
+        "broadcast:stop": [
+            "pm2 delete holos-broadcasts"
+        ],
+        "broadcast:status": [
+            "pm2 show holos-broadcasts"
+        ],
+        "services:start": [
+            "composer run jobs:start",
+            "composer run broadcast:start"
+        ],
+        "services:stop": [
+            "composer run jobs:stop",
+            "composer run broadcast:stop"
+        ],
+        "services:status": [
+            "composer run jobs:status",
+            "composer run broadcast:status"
+        ],
+        "update:permissions": [
+            "php artisan db:seed --class=RoleSeeder"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "laravel/telescope"
+            ]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

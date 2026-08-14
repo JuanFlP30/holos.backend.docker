@@ -1,0 +1,18 @@
+<?php namespace {{ namespace }};
+/**
+ * @copyright (c) 2026 MCortesDev (https://mcortes.dev) - All Rights Reserved
+ */
+
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <soy@mcortes.dev>
+ * 
+ * @version 1.0.0
+ */
+class {{ class }} extends Pivot
+{
+    //
+}

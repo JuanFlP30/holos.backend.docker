@@ -1,0 +1,26 @@
+<?php namespace {{ factoryNamespace }};
+/**
+ * @copyright (c) 2026 MCortesDev (https://mcortes.dev) - All Rights Reserved
+ */
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * Descripción
+ * 
+ * @author Moisés Cortés C. <soy@mcortes.dev>
+ * 
+ * @version 1.0.0
+ */
+class {{ factory }}Factory extends Factory
+{
+    /**
+     * Definir el estado por defecto del modelo
+     */
+    public function definition(): array
+    {
+        return [
+            //
+        ];
+    }
+}

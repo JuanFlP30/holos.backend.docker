@@ -1,0 +1,8 @@
+*
+!images/
+!keys/
+!private/
+!profile/
+!public/
+!tmp/
+!.gitignore
