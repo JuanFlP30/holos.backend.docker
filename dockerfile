@@ -1,36 +1,63 @@
-FROM php:8.3-fpm
+# ---------- base: shared runtime ----------
+FROM php:8.4-fpm AS base
 
-RUN mkdir -p /var/www/holos.backend
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+# Align www-data with the host user so bind-mounted files keep sane ownership
+RUN groupmod -o -g "${GROUP_ID}" www-data \
+    && usermod -o -u "${USER_ID}" -g "${GROUP_ID}" www-data
 
 WORKDIR /var/www/holos.backend
 
-RUN apt-get update && apt-get install -y\
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    libzip-dev \
-    openssl
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libpng-dev libonig-dev libxml2-dev libzip-dev zip unzip \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# ---------- dev: used by docker-compose ----------
+FROM base AS dev
+
+RUN apt-get update && apt-get install -y --no-install-recommends git gosu \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --no-scripts --optimize-autoloader --no-interaction
-
 COPY . .
+RUN mkdir -p storage/app/keys storage/app/public storage/logs storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache \
+    && composer dump-autoload --optimize --no-scripts \
+    && chown -R www-data:www-data storage bootstrap/cache vendor \
+    && chmod -R ug+rwX storage bootstrap/cache
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
 
 RUN chown -R www-data:www-data /var/www/holos.backend/storage /var/www/holos.backend/bootstrap/cache
 
 EXPOSE 9000
-
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]
+
+# ---------- prod: immutable image, no dev deps, non-root ----------
+FROM base AS prod
+
+RUN docker-php-ext-install opcache \
+    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && printf 'expose_php=Off\nopcache.enable=1\nopcache.validate_timestamps=0\nopcache.memory_consumption=128\nopcache.max_accelerated_files=20000\n' \
+        > "$PHP_INI_DIR/conf.d/zz-prod.ini"
+
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+
+COPY . .
+RUN mkdir -p storage/app/keys storage/app/public storage/logs storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache \
+    && composer dump-autoload --optimize --no-dev --no-scripts \
+    && php artisan package:discover --ansi \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R ug+rwX storage bootstrap/cache
+
+USER www-data
+EXPOSE 9000
 CMD ["php-fpm"]
