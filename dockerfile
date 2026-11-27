@@ -8,7 +8,9 @@ ARG GROUP_ID=1000
 RUN groupmod -o -g "${GROUP_ID}" www-data \
     && usermod -o -u "${USER_ID}" -g "${GROUP_ID}" www-data
 
-WORKDIR /var/www/holos.backend
+# Align www-data with the host user so bind-mounted files keep sane ownership
+RUN groupmod -o -g "${GROUP_ID}" www-data \
+    && usermod -o -u "${USER_ID}" -g "${GROUP_ID}" www-data
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libpng-dev libonig-dev libxml2-dev libzip-dev zip unzip \
@@ -33,8 +35,6 @@ RUN mkdir -p storage/app/keys storage/app/public storage/logs storage/framework/
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod 755 /usr/local/bin/entrypoint.sh
-
-RUN chown -R www-data:www-data /var/www/holos.backend/storage /var/www/holos.backend/bootstrap/cache
 
 EXPOSE 9000
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
