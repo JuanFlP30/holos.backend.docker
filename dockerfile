@@ -1,7 +1,14 @@
 FROM php:8.4-fpm
 
-# 1. Ajustar el usuario www-data para que coincida con tu host
-RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
+# ---------- base: shared runtime ----------
+FROM php:8.4-fpm AS base
+
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+# Align www-data with the host user so bind-mounted files keep sane ownership
+RUN groupmod -o -g "${GROUP_ID}" www-data \
+    && usermod -o -u "${USER_ID}" -g "${GROUP_ID}" www-data
 
 WORKDIR /var/www/polizas-backend
 
