@@ -25,3 +25,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+.atl/skill-registry.md
+.atl/.skill-registry.cache.json
