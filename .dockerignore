@@ -1,13 +1,37 @@
 .git
-.env
-vendor
-storage
-tests
-README.md
 .gitignore
 .gitattributes
 .editorconfig
-phpunit.xml
+.atl
+.vscode
+.idea
+
+# Secrets
+.env
+.env.*
+!.env.example
+auth.json
+**/*.key
+**/*.pem
+storage/app/keys
+
+# Dependencies (installed inside the image)
+vendor
+node_modules
+public/hot
+
+# Runtime data
+storage
 public/storage
 public/images
 public/profile
+public/tmp
+
+# Not needed in the image
+tests
+phpunit.xml
+README.md
+compose*.yaml
+docker-compose*.yml
+dockerfile
+Docker
