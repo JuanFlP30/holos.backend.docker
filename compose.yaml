@@ -68,6 +68,7 @@ services:
       interval: 10s
       timeout: 15s
       retries: 10
+      start_period: 30s
 
 volumes:
   mysql_data:
