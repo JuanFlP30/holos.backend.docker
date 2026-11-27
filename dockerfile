@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 # ---------- base: shared runtime ----------
 FROM php:8.4-fpm AS base
 
@@ -8,23 +10,32 @@ ARG GROUP_ID=1000
 RUN groupmod -o -g "${GROUP_ID}" www-data \
     && usermod -o -u "${USER_ID}" -g "${GROUP_ID}" www-data
 
+LABEL org.opencontainers.image.source="https://github.com/JuanFlP30/holos.backend.docker"
+
 WORKDIR /var/www/polizas-backend
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Keep downloaded .deb files so the BuildKit apt cache mount is effective
+RUN rm -f /etc/apt/apt.conf.d/docker-clean
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get install -y --no-install-recommends \
         libpng-dev libonig-dev libxml2-dev libzip-dev zip unzip \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
+ENV COMPOSER_CACHE_DIR=/tmp/composer-cache
 
-# ---------- dev: used by docker-compose ----------
+# ---------- dev: used by compose.yaml ----------
 FROM base AS dev
 
-RUN apt-get update && apt-get install -y --no-install-recommends git gosu \
-    && rm -rf /var/lib/apt/lists/*
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get install -y --no-install-recommends git gosu
 
 COPY composer.json composer.lock ./
-RUN composer install --optimize-autoloader --no-interaction --no-scripts
+RUN --mount=type=cache,target=/tmp/composer-cache \
+    composer install --optimize-autoloader --no-interaction --no-scripts
 
 COPY . .
 RUN mkdir -p storage/app/keys storage/app/public storage/logs storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache \
@@ -48,7 +59,8 @@ RUN docker-php-ext-install opcache \
         > "$PHP_INI_DIR/conf.d/zz-prod.ini"
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+RUN --mount=type=cache,target=/tmp/composer-cache \
+    composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 COPY . .
 RUN mkdir -p storage/app/keys storage/app/public storage/logs storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache \

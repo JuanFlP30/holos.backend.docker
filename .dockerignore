@@ -31,6 +31,7 @@ public/tmp
 tests
 phpunit.xml
 README.md
+compose*.yaml
 docker-compose*.yml
 dockerfile
 Docker

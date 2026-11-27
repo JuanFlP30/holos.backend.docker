@@ -7,6 +7,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Docker setup (development)
+
+The stack (`compose.yaml`) runs PHP-FPM, nginx and MySQL. Compose reads its variables from a `.env` file in the project root, so create it before the first start:
+
+| Variable | Required | Description |
+|---|---|---|
+| `DB_USERNAME` | yes | Application database user (must not be `root`) |
+| `DB_PASSWORD` | yes | Application database password |
+| `DB_DATABASE` | yes | Database name |
+| `DB_ROOT_PASSWORD` | yes | MySQL root password, different from `DB_PASSWORD` |
+| `DB_HOST_PORT` | no (`3306`) | Host port for MySQL, bound to `127.0.0.1` only |
+| `NGINX_PORT` | no (`8000`) | Host port for the API |
+| `USER_ID` / `GROUP_ID` | no (`1000`) | Host UID/GID so bind-mounted files keep your ownership (`id -u`, `id -g`) |
+
+```bash
+docker compose up -d --build --wait
+```
+
+On first start the entrypoint generates `APP_KEY` and the Passport keys only if they are missing, runs migrations, and seeds an empty database. Restarts never rotate existing keys.
+
+The `prod` build target (`docker build --target prod .`) produces an immutable, non-root image without dev dependencies.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
